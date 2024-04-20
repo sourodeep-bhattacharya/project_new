@@ -188,7 +188,7 @@ module Wrapper (clock, reset2, LED, JA, JB, JC, SW, ACL_MISO, ACL_MOSI, ACL_SCLK
     
     // Continuous assignment for LED output based on synchronized JB input
     wire test, test_out;
-    // assign LED[14] = JB[1];
+    // assign LED[14] = JB[1]; 
     
 
 //    and a0(LED[5], test, 1'b1);    
@@ -207,59 +207,84 @@ module Wrapper (clock, reset2, LED, JA, JB, JC, SW, ACL_MISO, ACL_MOSI, ACL_SCLK
     //assign LED_force[8] = force_input;
     
  // UART Configuration Parameters
-    localparam integer BAUD_RATE = 9600;  // Set your desired baud rate
-    localparam integer CLOCK_FREQ = 100000000;  // System clock frequency in Hz
-    localparam integer CLOCKS_PER_BAUD = CLOCK_FREQ / BAUD_RATE;
+//    localparam integer BAUD_RATE = 115200;  // Set your desired baud rate
+//    localparam integer CLOCK_FREQ = 100000000;  // System clock frequency in Hz
+//    localparam integer CLOCKS_PER_BAUD = CLOCK_FREQ / BAUD_RATE;
 
-    // UART Interface Wires
-    wire uart_rx, uart_tx;
-    wire [7:0] rx_data;
-    wire rx_data_valid;
-    wire tx_busy;
+//    // UART Interface Wires
+//    wire uart_rx, uart_tx;
+//    wire [7:0] rx_data;
+//    wire rx_data_valid, tx_busy;
+//    reg i_wr; // Control signal for writing to the UART transmitter
 
-    // Connecting FPGA pins to XBee module
-    assign JC[1] = uart_tx;  // Connect JC[1] to XBee RX
-    assign uart_rx = JB[1];  // Connect JB[1] to XBee TX
+//    // Instantiate UART Receiver
+//    rxuartlite #(.CLOCKS_PER_BAUD(CLOCKS_PER_BAUD)) uart_rx_inst (
+//        .i_clk(clock),
+//        .i_reset(reset),
+//        .i_uart_rx(uart_rx),
+//        .o_wr(rx_data_valid),
+//        .o_data(rx_data)
+//    );
 
-    // Instantiate the UART Lite Receiver
-    rxuartlite #(
-        .CLOCKS_PER_BAUD(CLOCKS_PER_BAUD)
-    ) uart_rx_inst (
-        .i_clk(clock),
-        .i_reset(reset2),
-        .i_uart_rx(uart_rx),
-        .o_wr(rx_data_valid),
-        .o_data(rx_data)
-    );
+//    // Instantiate UART Transmitter
+//    txuartlite #(.CLOCKS_PER_BAUD(CLOCKS_PER_BAUD)) uart_tx_inst (
+//        .i_clk(clock),
+//        .i_reset(reset),
+//        .i_wr(i_wr),
+//        .i_data(8'b11111111), // Transmit a fixed 8-bit value of 11111111
+//        .o_uart_tx(uart_tx),
+//        .o_busy(tx_busy)
+//    );
 
-    // Instantiate the UART Lite Transmitter
-    txuartlite #(
-        .CLOCKS_PER_BAUD(CLOCKS_PER_BAUD)
-    ) uart_tx_inst (
-        .i_clk(clock),
-        .i_reset(reset2),
-        .i_wr(i_wr),  // Example: Auto-echo received data
-        .i_data(i_wr),
-        .o_uart_tx(uart_tx),
-        .o_busy(tx_busy)
-    );
+//    // Control logic for UART transmission
+//    always @(posedge clock) begin
+//         if (!tx_busy) begin
+//            i_wr <= 1'b1; // Only write when the transmitter is not busy
+//        end else begin
+//            i_wr <= 1'b0; // Reset write enable to avoid continuous transmission
+//        end
+//    end
 
-    // Example use of UART data
-    assign LED[7:0] = rx_data;  // Display received data on LEDs
-    assign LED[8] = rx_data_valid;  // Indicate valid received data
-    assign LED[9] = tx_busy;  // Indicate if the transmitter is busy
-    
-    assign JC[1] = uart_tx;
-    
-    // Control i_wr based on tx_busy and new data availability
-    wire i_wr;
-    always @(posedge clock) begin
-     if (!tx_busy && rx_data_valid) begin
-         i_wr <= 1'b1; 
-         end else begin
-          i_wr <= 1'b0;
-           end
-      end
-    
-    
+//    // Assignments for external pins and indicators
+//    assign JC[1] = uart_tx;  // Connect UART transmit line to JC[1]
+//    assign uart_rx = JB[1];  // Connect UART receive line to JB[1]
+//    assign LED[7:0] = rx_data;  // Display received UART data on LEDs
+//    assign LED[8] = rx_data_valid;  // Indicator if received data is valid
+//    assign LED[9] = tx_busy;  // Indicator if UART transmitter is busy
+
+// Define clock cycles per bit for UART based on clock frequency and baud rate
+
+// UART Transmission and Reception Wires
+wire tx_done;
+wire rx_dv;
+wire [7:0] rx_byte;
+
+// Instantiate UART Transmitter with explicit parameter setting
+uart_tx uart_tx_inst (
+    .i_Clock(clock),
+    .i_Tx_DV(SW[0]),  // Trigger transmission using a switch
+    .i_Tx_Byte(8'hFF),  // Sending a byte of 0xFF
+    .o_Tx_Active(),
+    .o_Tx_Serial(JC[1]),  // Connect JC[1] to external UART RX
+    .o_Tx_Done(tx_done)
+);
+
+// Instantiate UART Receiver with explicit parameter setting
+uart_rx2 uart_rx_inst (
+    .i_Clock(clock),
+    .i_Rx_Serial(JB[1]),  // Connect JB[1] to external UART TX
+    .o_Rx_DV(rx_dv),
+    .o_Rx_Byte(rx_byte)
+);
+wire RxD_data_ready;
+wire [7:0] RxD_data;
+wire RxD;
+
+
+
+// LED outputs for debugging
+assign LED[7:0] = rx_byte;   // Display received data
+assign LED[8] = rx_dv;       // Indicator if received data is valid
+assign LED[9] = tx_done;     // Indicator if transmission is accel
+
 endmodule

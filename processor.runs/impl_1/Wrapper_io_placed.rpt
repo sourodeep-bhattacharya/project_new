@@ -1,8 +1,8 @@
 Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------
 | Tool Version              : Vivado v.2021.1 (win64) Build 3247384 Thu Jun 10 19:36:33 MDT 2021
-| Date                      : Fri Apr 19 22:48:34 2024
-| Host                      : P1-04 running 64-bit major release  (build 9200)
+| Date                      : Sat Apr 20 03:04:24 2024
+| Host                      : P2-05 running 64-bit major release  (build 9200)
 | Command                   : report_io -file Wrapper_io_placed.rpt
 | Design                    : Wrapper
 | Device                    : xc7a100t

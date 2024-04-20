@@ -70,6 +70,9 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param chipscope.maxJobs 3
+set_param xicom.use_bs_reader 1
+set_msg_config -id {Common 17-41} -limit 10000000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a100tcsg324-1
 
@@ -121,7 +124,6 @@ read_verilog -library xil_defaultlib {
   C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/new/pwn.v
   C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/regfile.v
   C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/registerEx.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/project_new/rxuartlite.v
   C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/new/seg7_control.v
   C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_left_1.v
   C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_left_16.v
@@ -136,9 +138,10 @@ read_verilog -library xil_defaultlib {
   C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/new/spi_master.v
   C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/tflipflop.v
   C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/new/top.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/project_new/txuartlite.v
   C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/type.v
   C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/new/uart_rx.v
+  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/new/uart_rx2.v
+  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/new/uart_tx.v
   C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/Wrapper.v
 }
 OPTRACE "Adding files" END { }

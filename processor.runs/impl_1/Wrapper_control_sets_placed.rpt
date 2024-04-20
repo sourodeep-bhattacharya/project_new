@@ -1,8 +1,8 @@
 Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2021.1 (win64) Build 3247384 Thu Jun 10 19:36:33 MDT 2021
-| Date         : Fri Apr 19 22:48:34 2024
-| Host         : P1-04 running 64-bit major release  (build 9200)
+| Date         : Sat Apr 20 03:04:24 2024
+| Host         : P2-05 running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file Wrapper_control_sets_placed.rpt
 | Design       : Wrapper
 | Device       : xc7a100t
@@ -23,11 +23,11 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Total control sets                                       |    21 |
-|    Minimum number of control sets                        |    21 |
+| Total control sets                                       |    11 |
+|    Minimum number of control sets                        |    11 |
 |    Addition due to synthesis replication                 |     0 |
 |    Addition due to physical synthesis replication        |     0 |
-| Unused register locations in slices containing registers |    62 |
+| Unused register locations in slices containing registers |    34 |
 +----------------------------------------------------------+-------+
 * Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
 ** Run report_qor_suggestions for automated merging and remapping suggestions
@@ -39,15 +39,15 @@ Table of Contents
 +--------------------+-------+
 |       Fanout       | Count |
 +--------------------+-------+
-| Total control sets |    21 |
-| >= 0 to < 4        |     4 |
-| >= 4 to < 6        |     4 |
-| >= 6 to < 8        |     4 |
-| >= 8 to < 10       |     2 |
-| >= 10 to < 12      |     1 |
+| Total control sets |    11 |
+| >= 0 to < 4        |     3 |
+| >= 4 to < 6        |     1 |
+| >= 6 to < 8        |     3 |
+| >= 8 to < 10       |     0 |
+| >= 10 to < 12      |     0 |
 | >= 12 to < 14      |     0 |
 | >= 14 to < 16      |     1 |
-| >= 16              |     5 |
+| >= 16              |     3 |
 +--------------------+-------+
 * Control sets can be remapped at either synth_design or opt_design
 
@@ -58,12 +58,12 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              26 |           14 |
+| No           | No                    | No                     |              27 |           15 |
 | No           | No                    | Yes                    |               0 |            0 |
-| No           | Yes                   | No                     |              91 |           28 |
-| Yes          | No                    | No                     |              32 |           15 |
+| No           | Yes                   | No                     |              59 |           16 |
+| Yes          | No                    | No                     |              24 |           11 |
 | Yes          | No                    | Yes                    |               0 |            0 |
-| Yes          | Yes                   | No                     |              37 |           17 |
+| Yes          | Yes                   | No                     |               0 |            0 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
@@ -73,26 +73,16 @@ Table of Contents
 +------------------+--------------------------------------------------+-----------------------------------------------+------------------+----------------+--------------+
 |   Clock Signal   |                   Enable Signal                  |                Set/Reset Signal               | Slice Load Count | Bel Load Count | Bels / Slice |
 +------------------+--------------------------------------------------+-----------------------------------------------+------------------+----------------+--------------+
-|  clock_IBUF_BUFG | uart_tx_inst/o_uart_tx_i_1_n_0                   | reset2_IBUF                                   |                1 |              1 |         1.00 |
 | ~clock_IBUF_BUFG |                                                  |                                               |                1 |              1 |         1.00 |
-|  w_4MHz          | accel/master/cs_i_1_n_0                          |                                               |                1 |              1 |         1.00 |
 |  w_4MHz          | accel/master/mosi_i_1_n_0                        |                                               |                1 |              1 |         1.00 |
-|  clock_IBUF_BUFG | uart_tx_inst/zero_baud_counter                   | reset2_IBUF                                   |                2 |              4 |         2.00 |
-|  clock_IBUF_BUFG | uart_rx_inst/state[3]_i_1__0_n_0                 | reset2_IBUF                                   |                2 |              4 |         2.00 |
-|  clock_IBUF_BUFG | uart_rx_inst/p_1_in0                             | uart_rx_inst/baud_counter[9]_i_1_n_0          |                1 |              4 |         4.00 |
+|  w_4MHz          | accel/master/cs_i_1_n_0                          |                                               |                1 |              1 |         1.00 |
 |  clock_IBUF_BUFG |                                                  | accel/clock_generation/counter[4]_i_1_n_0     |                1 |              5 |         5.00 |
-|  clock_IBUF_BUFG |                                                  |                                               |                4 |              6 |         1.50 |
-|  clock_IBUF_BUFG | uart_rx_inst/baud_counter[7]_i_1__0_n_0          | reset2_IBUF                                   |                4 |              6 |         1.50 |
-|  clock_IBUF_BUFG |                                                  | p1/pwm_serial/load                            |                2 |              7 |         3.50 |
+|  clock_IBUF_BUFG |                                                  |                                               |                4 |              7 |         1.75 |
+|  clock_IBUF_BUFG |                                                  | p1/pwm_serial/load                            |                3 |              7 |         2.33 |
 |  w_4MHz          | accel/master/FSM_sequential_state_reg[6]_i_1_n_0 |                                               |                4 |              7 |         1.75 |
-|  clock_IBUF_BUFG | uart_rx_inst/o_wr0                               | reset2_IBUF                                   |                4 |              8 |         2.00 |
-|  clock_IBUF_BUFG | uart_rx_inst/data_reg0                           |                                               |                2 |              8 |         4.00 |
-|  clock_IBUF_BUFG | uart_rx_inst/chg_counter[9]_i_1_n_0              | reset2_IBUF                                   |                3 |             10 |         3.33 |
-| ~w_4MHz          | accel/master/latch_data                          |                                               |                7 |             15 |         2.14 |
-|  clock_IBUF_BUFG |                                                  | uart_tx_inst/baud_counter[23]_i_1_n_0         |                6 |             16 |         2.67 |
-|  clock_IBUF_BUFG |                                                  | reset2_IBUF                                   |                7 |             16 |         2.29 |
+| ~w_4MHz          | accel/master/latch_data                          |                                               |                5 |             15 |         3.00 |
 |  clock_IBUF_BUFG |                                                  | accel/display_control/anode_timer[16]_i_1_n_0 |                4 |             16 |         4.00 |
-|  w_4MHz          |                                                  |                                               |                9 |             19 |         2.11 |
+|  w_4MHz          |                                                  |                                               |               10 |             19 |         1.90 |
 |  w_4MHz          |                                                  | accel/master/counter[31]_i_1_n_0              |                8 |             31 |         3.88 |
 +------------------+--------------------------------------------------+-----------------------------------------------+------------------+----------------+--------------+
 
