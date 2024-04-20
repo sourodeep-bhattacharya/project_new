@@ -18,15 +18,15 @@
 
 
 module top(
-    input CLK100MHZ,            // nexys a7 clock
-    input ACL_MISO,             // master in
-    output ACL_MOSI,            // master out
-    output ACL_SCLK,            // spi sclk
-    output ACL_CSN,             // spi ~chip select
-    output [14:0] LED,          // X = LED[14:10], Y = LED[9:5], Z = LED[4:0]
-    output [6:0] SEG,           // 7 segments of display
-    output DP,                  // decimal point of display
-    output [7:0] AN             // 8 displays
+    input wire CLK100MHZ,            // nexys a7 clock
+    input wire ACL_MISO,             // master in
+    output wire ACL_MOSI,            // master out
+    output wire ACL_SCLK,            // spi sclk
+    output wire ACL_CSN,             // spi ~chip select
+    output wire [14:0] LED,          // X = LED[14:10], Y = LED[9:5], Z = LED[4:0]
+    output wire[6:0] SEG,           // 7 segments of display
+    output wire DP,                  // decimal point of display
+    output wire [7:0] AN             // 8 displays
     );
     
     wire w_4MHz;
@@ -54,8 +54,8 @@ module top(
         .an(AN)
     );
 
-    assign LED[14:10] = acl_data[14:10];    // 5 bits of x data
-    assign LED[9:5]   = acl_data[9:5];     // 5 bits of y data
-    assign LED[4:0]   = acl_data[4:0];      // 5 bits of z data
+    // assign LED[14:10] = acl_data[14:10];    // 5 bits of x data
+    // assign LED[9:5]   = acl_data[9:5];     // 5 bits of y data
+    // assign LED[4:0]   = acl_data[4:0];      // 5 bits of z data
     
 endmodule

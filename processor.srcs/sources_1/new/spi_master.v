@@ -41,12 +41,12 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 module spi_master(
-    input iclk,                 // 4MHz
-    input miso,                 // master in
-	output sclk,				// 1MHz
+    input wire iclk,                 // 4MHz
+    input wire miso,                 // master in
+	output wire sclk,				// 1MHz
     output reg mosi = 1'b0,     // master out
     output reg cs = 1'b1,       // slave chip select
-    output [14:0] acl_data     // 15 bit data, 5 each axis
+    output wire [14:0] acl_data     // 15 bit data, 5 each axis
     );
     
     // Control sclk output for spi mode

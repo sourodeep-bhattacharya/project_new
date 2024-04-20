@@ -97,7 +97,7 @@ module Wrapper (clock, reset2, LED, JA, JB, JC, SW, ACL_MISO, ACL_MOSI, ACL_SCLK
 	
 	pwn p1(.clk(clock), .tone(tone), .chSel(chSel), .audioOut(audioOut), .audioEn(audioEn), .SW(SW));
 	assign JA[1] = audioOut;
-	assign JC[1] = 1'b1;
+	
 	wire [23:0] div;
 	assign div = 100000000/9600; 
 	
@@ -171,7 +171,7 @@ module Wrapper (clock, reset2, LED, JA, JB, JC, SW, ACL_MISO, ACL_MOSI, ACL_SCLK
     // You might want to use additional LEDs or signals to display other statuses or control bits.
     wire [14:0] gyro;
     top accel(.CLK100MHZ(clock), .ACL_MISO(ACL_MISO), .ACL_MOSI(ACL_MOSI), .ACL_SCLK(ACL_SCLK), .ACL_CSN(ACL_CSN), .LED(gyro), .SEG(SEG), .DP(DP), .AN(AN));
-    assign LED[14:0] = gyro;
+//    assign LED[14:0] = gyro;
     
 //Force sensor input     
     
@@ -191,7 +191,7 @@ module Wrapper (clock, reset2, LED, JA, JB, JC, SW, ACL_MISO, ACL_MOSI, ACL_SCLK
     // assign LED[14] = JB[1];
     
 
-    and a0(LED[5], test, 1'b1);    
+//    and a0(LED[5], test, 1'b1);    
     
     //assign JC[1] = test_out;
     
@@ -206,6 +206,60 @@ module Wrapper (clock, reset2, LED, JA, JB, JC, SW, ACL_MISO, ACL_MOSI, ACL_SCLK
     
     //assign LED_force[8] = force_input;
     
+ // UART Configuration Parameters
+    localparam integer BAUD_RATE = 9600;  // Set your desired baud rate
+    localparam integer CLOCK_FREQ = 100000000;  // System clock frequency in Hz
+    localparam integer CLOCKS_PER_BAUD = CLOCK_FREQ / BAUD_RATE;
+
+    // UART Interface Wires
+    wire uart_rx, uart_tx;
+    wire [7:0] rx_data;
+    wire rx_data_valid;
+    wire tx_busy;
+
+    // Connecting FPGA pins to XBee module
+    assign JC[1] = uart_tx;  // Connect JC[1] to XBee RX
+    assign uart_rx = JB[1];  // Connect JB[1] to XBee TX
+
+    // Instantiate the UART Lite Receiver
+    rxuartlite #(
+        .CLOCKS_PER_BAUD(CLOCKS_PER_BAUD)
+    ) uart_rx_inst (
+        .i_clk(clock),
+        .i_reset(reset2),
+        .i_uart_rx(uart_rx),
+        .o_wr(rx_data_valid),
+        .o_data(rx_data)
+    );
+
+    // Instantiate the UART Lite Transmitter
+    txuartlite #(
+        .CLOCKS_PER_BAUD(CLOCKS_PER_BAUD)
+    ) uart_tx_inst (
+        .i_clk(clock),
+        .i_reset(reset2),
+        .i_wr(i_wr),  // Example: Auto-echo received data
+        .i_data(i_wr),
+        .o_uart_tx(uart_tx),
+        .o_busy(tx_busy)
+    );
+
+    // Example use of UART data
+    assign LED[7:0] = rx_data;  // Display received data on LEDs
+    assign LED[8] = rx_data_valid;  // Indicate valid received data
+    assign LED[9] = tx_busy;  // Indicate if the transmitter is busy
+    
+    assign JC[1] = uart_tx;
+    
+    // Control i_wr based on tx_busy and new data availability
+    wire i_wr;
+    always @(posedge clock) begin
+     if (!tx_busy && rx_data_valid) begin
+         i_wr <= 1'b1; 
+         end else begin
+          i_wr <= 1'b0;
+           end
+      end
     
     
 endmodule

@@ -5,8 +5,8 @@
 
 
 module seg7_control(
-    input CLK100MHZ,
-    input [14:0] acl_data,
+    input wire CLK100MHZ,
+    input wire [14:0] acl_data,
     output reg [6:0] seg,
     output reg dp,
     output reg [7:0] an
