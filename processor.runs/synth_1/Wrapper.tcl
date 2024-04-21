@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "C:/Users/sek49/Documents/project_new/processor.runs/synth_1/Wrapper.tcl"
+  variable script "C:/Users/sb734/Documents/project_new/processor.runs/synth_1/Wrapper.tcl"
   variable category "vivado_synth"
 }
 
@@ -72,77 +72,73 @@ proc create_report { reportName command } {
 OPTRACE "synth_1" START { ROLLUP_AUTO }
 set_param chipscope.maxJobs 3
 set_param xicom.use_bs_reader 1
-set_msg_config -id {Common 17-41} -limit 10000000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a100tcsg324-1
 
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir C:/Users/sek49/Documents/project_new/processor.cache/wt [current_project]
-set_property parent.project_path C:/Users/sek49/Documents/project_new/processor.xpr [current_project]
+set_property webtalk.parent_dir C:/Users/sb734/Documents/project_new/processor.cache/wt [current_project]
+set_property parent.project_path C:/Users/sb734/Documents/project_new/processor.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_output_repo c:/Users/sek49/Documents/project_new/processor.cache/ip [current_project]
+set_property ip_output_repo c:/Users/sb734/Documents/project_new/processor.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_mem C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/Downloads/addi_basic.mem
+read_mem C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/Downloads/addi_basic.mem
 read_verilog -library xil_defaultlib {
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/ALU_adder.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/CLA.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/CLA_block.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/Decode.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/Execute.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/Fetch.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/Memory.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/new/PWMSerializers.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/RAM.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/ROM.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/alu.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/ander.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/barrel_shifter_left.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/barrel_shifter_right.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/bypassing.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/completeType.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/counter.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/dffe_ref.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/divider.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/exceptions.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/hazard.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/new/iclk_gen.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/multdiv.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/multiplier.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/mux_16.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/mux_2.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/mux_32.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/mux_4.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/mux_8.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/notter.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/orer.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/processor.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/new/pwn.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/regfile.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/registerEx.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/new/seg7_control.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_left_1.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_left_16.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_left_2.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_left_4.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_left_8.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_right_1.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_right_16.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_right_2.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_right_4.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_right_8.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/new/spi_master.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/tflipflop.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/new/top.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/type.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/new/uart_rx.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/new/uart_rx2.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/new/uart_tx.v
-  C:/Users/sek49/Documents/project_new/processor.srcs/sources_1/imports/240551425/Wrapper.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/ALU_adder.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/CLA.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/CLA_block.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/Decode.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/Execute.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/Fetch.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/Memory.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/PWMSerializers.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/RAM.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/ROM.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/alu.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/ander.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/barrel_shifter_left.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/barrel_shifter_right.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/bypassing.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/completeType.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/counter.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/dffe_ref.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/divider.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/exceptions.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/hazard.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/iclk_gen.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/multdiv.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/multiplier.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/mux_16.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/mux_2.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/mux_32.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/mux_4.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/mux_8.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/notter.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/orer.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/processor.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/pwn.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/regfile.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/registerEx.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/seg7_control.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_left_1.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_left_16.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_left_2.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_left_4.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_left_8.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_right_1.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_right_16.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_right_2.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_right_4.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/shift_right_8.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/spi_master.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/tflipflop.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/top.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/type.v
+  C:/Users/sb734/Documents/project_new/processor.srcs/sources_1/imports/240551425/Wrapper.v
 }
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -153,8 +149,8 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc C:/Users/sek49/Documents/project_new/processor.srcs/constrs_1/imports/lab-3-master/master.xdc
-set_property used_in_implementation false [get_files C:/Users/sek49/Documents/project_new/processor.srcs/constrs_1/imports/lab-3-master/master.xdc]
+read_xdc C:/Users/sb734/Documents/project_new/processor.srcs/constrs_1/imports/lab-3-master/master.xdc
+set_property used_in_implementation false [get_files C:/Users/sb734/Documents/project_new/processor.srcs/constrs_1/imports/lab-3-master/master.xdc]
 
 set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]
